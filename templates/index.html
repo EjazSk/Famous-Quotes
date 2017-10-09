@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+     {% block content %}
+     <br>
+    <div class="container">
+    <form method="GET" action="">
+      <div class="row">
+        <div class="col">
+          <input type="text"  name="q" class="form-control" placeholder="Search Quotes" value='{{ request.GET.q }}'>
+        </div>
+        <div class="col">
+          <input type="submit"  class="btn btn-outline-primary" >
+        </div>
+      </div>
+    </form>
+
+
+
+
+      <br>
+       {% for post in qs %}
+        <div class="card">
+         
+      <div class="card-header">
+        <a href="/{{post.id}}">{{ post.title }}</a>
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <p>    {{ post.body }}</p>
+          <footer class="blockquote-footer">{{ post.author }} </footer>
+        </blockquote>
+      </div>
+    </div><br>
+
+
+       {% endfor %}
+       <div class="pagination">
+    <span class="step-links">
+        {% if qs.has_previous %}
+            <a href="?page={{ qs.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ qs.number }} of {{ qs.paginator.num_pages }}.
+        </span>
+
+        {% if qs.has_next %}
+            <a href="?page={{ qs.next_page_number }}">Next</a>
+        {% endif %}
+    </span>
+</div>
+        
+       {% endblock %} 
+  
